@@ -43,7 +43,7 @@ with open(readme_path, 'r') as file:
 
 with DAG(
     dag_id="nyc-data-engg",
-    start_date=datetime(2025, 06, 12),
+    start_date=datetime(2025, 6, 12),
     schedule='0 0/12 * * *',
     tags=["DE-dag"],
     doc_md=readme_content,
