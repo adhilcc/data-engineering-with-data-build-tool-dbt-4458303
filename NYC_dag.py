@@ -90,7 +90,7 @@ with DAG(
     ),
         default_args={"retries": 1,
                      'on_failure_callback': lambda context: on_failure_callback(context,"TEST_SVC_NAME"),},
-        group_id = "dbt_stg_group"
+        group_id = "dbt_stg_group1"
     )
 
 
@@ -111,7 +111,7 @@ with DAG(
     ),
         default_args={"retries": 1,
                      'on_failure_callback': lambda context: on_failure_callback(context,"TEST_SVC_NAME"),},
-        group_id = "dbt_stg_group"
+        group_id = "dbt_stg_group2"
     )
 
   
@@ -132,7 +132,7 @@ with DAG(
     ),
         default_args={"retries": 1,
                      'on_failure_callback': lambda context: on_failure_callback(context,"TEST_SVC_NAME"),},
-        group_id = "dbt_stg_group"
+        group_id = "dbt_stg_group3"
     )
 
 
