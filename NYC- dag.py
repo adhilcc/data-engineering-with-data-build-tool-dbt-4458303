@@ -159,4 +159,4 @@ with DAG(
    
     e2 = EmptyOperator(task_id="post_dbt")
     
- seeds_tg >> stg_bronze >> stg_silver >>  stg_gold >> dbt_tg >> e2
+  seeds_tg >> stg_bronze >> stg_silver >> stg_gold >> dbt_tg >> e2
