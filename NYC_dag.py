@@ -56,7 +56,7 @@ with DAG(
 
     seeds_tg = DbtTaskGroup(
         project_config=ProjectConfig(
-        Path("/appz/home/airflow/dags/data-engineering"),
+        Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations"),
     ),
         operator_args={
             "append_env": True,
@@ -139,7 +139,7 @@ with DAG(
   
     dbt_tg = DbtTaskGroup(
         project_config=ProjectConfig(
-        Path("/appz/home/airflow/dags/data-engineering"),
+        Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations"),
     ),
         operator_args={
             "append_env": True,
