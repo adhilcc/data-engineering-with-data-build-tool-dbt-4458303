@@ -139,7 +139,7 @@ with DAG(
   
     dbt_tg = DbtTaskGroup(
         project_config=ProjectConfig(
-        Path("/appz/home/airflow/dags/jaffle_shop"),
+        Path("/appz/home/airflow/dags/data-engineering"),
     ),
         operator_args={
             "append_env": True,
