@@ -50,3 +50,42 @@ models:
       +materialized: table
 tests:
   +store_failures: true
+seeds:
+  nyc_parking_violations:
+    parking_violations_issued_fiscal_year_2023_sample:
+      +column_types:
+        Summons Number: bigint
+        Registration State: text
+        Plate Type: text
+        Issue Date: text
+        Violation Code: integer
+        Vehicle Body Type: text
+        Vehicle Make: text
+        Issuing Agency: text
+        Vehicle Expiration Date: text
+        Violation Location: text
+        Violation Precinct: integer
+        Issuer Precinct: integer
+        Issuer Code: integer
+        Issuer Command: text
+        Issuer Squad: text
+        Violation Time: text
+        Time First Observed: text
+        Violation County: text
+        Violation In Front Of Or Opposite: text
+        Date First Observed: text
+        Law Section: integer
+        Sub Division: text
+        Violation Legal Code: text
+        Days Parking In Effect: text
+        From Hours In Effect: text
+        To Hours In Effect: text
+        Vehicle Color: text
+        Unregistered Vehicle?: text
+        Vehicle Year: integer
+        Meter Number: text
+        Feet From Curb: integer
+        No Standing or Stopping Violation: text
+        Hydrant Violation: text
+        Double Parking Violation: text
+
