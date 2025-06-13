@@ -20,4 +20,4 @@ SELECT
     vehicle_color,
     vehicle_year,
 FROM
-   parking_violations_issued_fiscal_year_2023_sample.cs
+   parking_violations_issued_fiscal_year_2023_sample
