@@ -92,5 +92,5 @@ seeds:
       +column_types:
         CODE: integer
         DEFINITION: text
-        "Manhattan  96th St. & below": text
+        "Manhattan 96th St. & below": text
         "All Other Areas": text
