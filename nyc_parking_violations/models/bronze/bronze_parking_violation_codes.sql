@@ -1,7 +1,7 @@
 SELECT
-    CODE AS violation_code,
-    definition,
-    manhattan_96th_st_below,
-    all_other_areas
+    "CODE" AS violation_code,
+    "DEFINITION" AS definition,
+    "Manhattan  96th St. & below" AS manhattan_96th_st_below,
+    "All Other Areas" AS all_other_areas
 FROM
-    dof_parking_violation_codes
+    {{ ref('dof_parking_violation_codes') }}
