@@ -20,7 +20,7 @@ SELECT
     Vehicle_Color,
     Vehicle_Year,
     CASE WHEN
-        Violation_County == 'MN'
+        Violation_County = 'MN'
         THEN TRUE
         ELSE FALSE
         END AS is_manhattan_96th_st_below
