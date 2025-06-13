@@ -88,4 +88,9 @@ seeds:
         No Standing or Stopping Violation: text
         Hydrant Violation: text
         Double Parking Violation: text
-
+    parking_violation_codes: 
+      +column_types:
+        CODE: integer
+        DEFINITION: text
+        "Manhattan  96th St. & below": text
+        "All Other Areas": text
