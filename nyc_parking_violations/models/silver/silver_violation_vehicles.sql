@@ -1,11 +1,11 @@
 SELECT
-    "summons number",
-    "registration state",
-    "plate type"
-    "vehicle body type",
-    "vehicle make",
-    "vehicle expiration date",
-    "vehicle color",
-    "vehicle year"
+    summons_number,
+    registration_state,
+    plate_type,
+    vehicle_body_type,
+    vehicle_make,
+    vehicle_expiration_date,
+    vehicle_color,
+    vehicle_year
 FROM
     {{ref('silver_parking_violations')}}
