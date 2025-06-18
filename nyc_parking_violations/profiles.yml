@@ -2,7 +2,7 @@ nyc_parking_violations:
   target: dev
   outputs:
     # PostgreSQL configuration
-    dev:
+    postgres_dev:
       type: postgres
       host: postgres
       user: "{{ env_var('AIRFLOW_POSTGRES_USER') }}"
