@@ -1,11 +1,26 @@
 nyc_parking_violations:
   target: dev
   outputs:
-   dev:
-     type: postgres
-     host: postgres
-     user: "{{env_var('AIRFLOW_POSTGRES_USER')}}"
-     password: "{{env_var('AIRFLOW_POSTGRES_PASSWORD')}}"
-     dbname: postgres
-     schema: schema_airflow
-     port: 5432
+    # PostgreSQL configuration
+    dev:
+      type: postgres
+      host: postgres
+      user: "{{ env_var('AIRFLOW_POSTGRES_USER') }}"
+      password: "{{ env_var('AIRFLOW_POSTGRES_PASSWORD') }}"
+      dbname: postgres
+      schema: schema_airflow
+      port: 5432
+
+    # Snowflake configuration (key pair authentication)
+    snowflake_dev:
+      type: snowflake
+      account: bq84368.us-east-2.aws             
+      user: ADHIL
+      role: ACCOUNTADMIN                 
+      database: NYC_DATA_ENG          
+      warehouse: COMPUTE_WH
+      schema: NYC_SCHEMA             
+      threads: 1
+      client_session_keep_alive: false
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY') }}"
+      private_key_passphrase: "{{ env_var('SNOWFLAKE_PASSPHRASE') }}"  
