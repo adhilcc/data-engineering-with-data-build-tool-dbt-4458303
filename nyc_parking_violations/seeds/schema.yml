@@ -4,45 +4,45 @@ seeds:
   - name: parking_violations_issued_fiscal_year_2023_sample
     config:
       column_types:
-        "Summons Number": number
-        "Registration State": text
-        "Plate Type": text
-        "Issue Date": text
-        "Violation Code": number
-        "Vehicle Body Type": text
-        "Vehicle Make": text
-        "Issuing Agency": text
-        "Vehicle Expiration Date": text
-        "Violation Location": text
-        "Violation Precinct": number
-        "Issuer Precinct": number
-        "Issuer Code": number
-        "Issuer Command": text
-        "Issuer Squad": text
-        "Violation Time": text
-        "Time First Observed": text
-        "Violation County": text
-        "Violation In Front Of Or Opposite": text
-        "Date First Observed": text
-        "Law Section": number
-        "Sub Division": text
-        "Violation Legal Code": text
-        "Days Parking In Effect": text
-        "From Hours In Effect": text
-        "To Hours In Effect": text
-        "Vehicle Color": text
-        "Unregistered Vehicle?": text
-        "Vehicle Year": number
-        "Meter Number": text
-        "Feet From Curb": number
-        "No Standing or Stopping Violation": text
-        "Hydrant Violation": text
-        "Double Parking Violation": text
+        Summons_Number: integer
+        Registration_State: varchar
+        Plate_Type: varchar
+        Issue_Date: varchar
+        Violation_Code: integer
+        Vehicle_Body_Type: varchar
+        Vehicle_Make: varchar
+        Issuing_Agency: varchar
+        Vehicle_Expiration_Date: varchar
+        Violation_Location: varchar
+        Violation_Precinct: integer
+        Issuer_Precinct: integer
+        Issuer_Code: integer
+        Issuer_Command: varchar
+        Issuer_Squad: varchar
+        Violation_Time: varchar
+        Time_First_Observed: varchar
+        Violation_County: varchar
+        Violation_In_Front_Of_Or_Opposite: varchar
+        Date_First_Observed: varchar
+        Law_Section: integer
+        Sub_Division: varchar
+        Violation_Legal_Code: varchar
+        Days_Parking_In_Effect: varchar
+        From_Hours_In_Effect: varchar
+        To_Hours_In_Effect: varchar
+        Vehicle_Color: varchar
+        Unregistered_Vehicle: varchar
+        Vehicle_Year: integer
+        Meter_Number: varchar
+        Feet_From_Curb: integer
+        No_Standing_or_Stopping_Violation: varchar
+        Hydrant_Violation: varchar
+        Double_Parking_Violation: varchar
 
   - name: dof_parking_violation_codes
     config:
       column_types:
-        CODE: number
-        DEFINITION: text
-        "Manhattan 96th St. & below": number
-        "All Other Areas": number
+        CODE: integer
+        DEFINITION: varchar
+        Manhattan_96th_St_and_below: integer
+        All_Other_Areas: integer
