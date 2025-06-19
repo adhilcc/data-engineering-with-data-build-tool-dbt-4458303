@@ -2,32 +2,47 @@ version: 2
 
 seeds:
   - name: parking_violations_issued_fiscal_year_2023_sample
-    columns:
-      - name: summons_number
-        alias: "Summons Number"
-      - name: registration_state
-        alias: "Registration State"
-      - name: plate_type
-        alias: "Plate Type"
-      - name: issue_date
-        alias: "Issue Date"
-      - name: violation_code
-        alias: "Violation Code"
-      - name: vehicle_body_type
-        alias: "Vehicle Body Type"
-      - name: vehicle_make
-        alias: "Vehicle Make"
-      - name: issuing_agency
-        alias: "Issuing Agency"
-      # ... and so on for all columns
+    config:
+      column_types:
+        "Summons Number": number
+        "Registration State": text
+        "Plate Type": text
+        "Issue Date": text
+        "Violation Code": number
+        "Vehicle Body Type": text
+        "Vehicle Make": text
+        "Issuing Agency": text
+        "Vehicle Expiration Date": text
+        "Violation Location": text
+        "Violation Precinct": number
+        "Issuer Precinct": number
+        "Issuer Code": number
+        "Issuer Command": text
+        "Issuer Squad": text
+        "Violation Time": text
+        "Time First Observed": text
+        "Violation County": text
+        "Violation In Front Of Or Opposite": text
+        "Date First Observed": text
+        "Law Section": number
+        "Sub Division": text
+        "Violation Legal Code": text
+        "Days Parking In Effect": text
+        "From Hours In Effect": text
+        "To Hours In Effect": text
+        "Vehicle Color": text
+        "Unregistered Vehicle?": text
+        "Vehicle Year": number
+        "Meter Number": text
+        "Feet From Curb": number
+        "No Standing or Stopping Violation": text
+        "Hydrant Violation": text
+        "Double Parking Violation": text
 
   - name: dof_parking_violation_codes
-    columns:
-      - name: code
-        alias: CODE
-      - name: definition
-        alias: DEFINITION
-      - name: manhattan_96th_st_below
-        alias: "Manhattan 96th St. & below"
-      - name: all_other_areas
-        alias: "All Other Areas"
+    config:
+      column_types:
+        CODE: number
+        DEFINITION: text
+        "Manhattan 96th St. & below": number
+        "All Other Areas": number
