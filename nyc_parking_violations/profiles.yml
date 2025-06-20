@@ -1,7 +1,5 @@
 nyc_parking_violations:
-  target: dev
   outputs:
-    # PostgreSQL configuration
     postgres_dev:
       type: postgres
       host: postgres
@@ -11,7 +9,6 @@ nyc_parking_violations:
       schema: schema_airflow
       port: 5432
 
-    # Snowflake configuration (key pair authentication)
     snowflake_dev:
       type: snowflake
       account: bq84368.us-east-2.aws             
@@ -23,4 +20,4 @@ nyc_parking_violations:
       threads: 1
       client_session_keep_alive: false
       private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY') }}"
-      private_key_passphrase: "{{ env_var('SNOWFLAKE_PASSPHRASE') }}"  
+      private_key_passphrase: "{{ env_var('SNOWFLAKE_PASSPHRASE') }}"
