@@ -30,7 +30,7 @@ def on_failure_callback(context, SVC_NAME):
 # dbt profile config
 profile_config = ProfileConfig(
     profile_name="nyc_parking_violations",
-    target_name="dev",
+    target_name="postgres_dev",
     profiles_yml_filepath="/appz/home/airflow/dags/data-engineering/nyc_parking_violations/profiles.yml",
 )
 
