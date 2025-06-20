@@ -7,90 +7,115 @@ from functools import partial
 from pathlib import Path
 import os
 
-# Failure callback
+# Custom failure callback
 def on_failure_callback(context, SVC_NAME):
+    svc = SVC_NAME
     task = context.get("task_instance").task_id
     dag = context.get("task_instance").dag_id
+    ti = context.get("task_instance")
     exec_date = context.get("execution_date")
     dag_run = context.get("dag_run")
     log_url = context.get("task_instance").log_url
-    print(f"""
-        SVC: {SVC_NAME}
+    msg = f""" 
+        SVC: {svc}
         Dag: {dag}
         Task: {task}
         DagRun: {dag_run}
-        Execution Time: {exec_date}
-        Log Url: {log_url}
-    """)
+        TaskInstance: {ti}
+        Log Url: {log_url} 
+        Execution Time: {exec_date} 
+    """
+    print(msg)
 
-
-# Cosmos dbt profile configuration
-profile_config = ProfileConfig(
+# Profile for Snowflake
+snowflake_profile_config = ProfileConfig(
     profile_name="nyc_parking_violations",
     target_name="snowflake_dev",
     profiles_yml_filepath="/appz/home/airflow/dags/data-engineering/nyc_parking_violations/profiles.yml",
 )
 
-failure_callback_partial = partial(on_failure_callback, SVC_NAME="SNOWFLAKE_SVC")
+# Read README.md as DAG documentation
+readme_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'README.md')
+with open(readme_path, 'r') as file:
+    readme_content = file.read()
+
+# Define partial failure callback with a fixed service name
+failure_callback_partial = partial(on_failure_callback, SVC_NAME="TEST_SVC_NAME")
 
 with DAG(
-    dag_id="nyc_snowflake_dag",
+    dag_id="nyc-data-engg-snowflake",
     start_date=datetime(2025, 6, 12),
-    schedule_interval="@daily",
+    schedule_interval="0 */12 * * *",  # Run every 12 hours
+    tags=["DE-dag", "snowflake"],
+    doc_md=readme_content,
+    default_args={"owner": "airflow"},
     catchup=False,
-    tags=["snowflake", "dbt"],
-    default_args={"owner": "airflow"}
 ) as dag:
 
-    # dbt seed task group
     seeds_tg = DbtTaskGroup(
-        group_id="dbt_seeds_snowflake",
+        group_id="dbt_seeds_group",
         project_config=ProjectConfig(
             Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations")
         ),
-        profile_config=profile_config,
-        execution_config=ExecutionConfig(dbt_executable_path="/dbt_venv/bin/dbt"),
-        render_config=RenderConfig(select=["path:seeds/"]),
-        operator_args={"env": env_vars, "append_env": True},
+        profile_config=snowflake_profile_config,
+        execution_config=ExecutionConfig(
+            dbt_executable_path="/dbt_venv/bin/dbt"
+        ),
+        render_config=RenderConfig(
+            select=["path:seeds/"]
+        ),
+        operator_args={"append_env": True},
+        default_args={"retries": 2}
     )
 
-    # bronze transformation
-    bronze = DbtTaskGroup(
-        group_id="dbt_bronze_snowflake",
+    stg_bronze = DbtTaskGroup(
+        group_id="dbt_stg_group1",
         project_config=ProjectConfig(
             Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations")
         ),
-        profile_config=profile_config,
-        execution_config=ExecutionConfig(dbt_executable_path="/dbt_venv/bin/dbt"),
-        render_config=RenderConfig(select=["path:models/bronze/"]),
-        operator_args={"env": env_vars, "append_env": True},
+        profile_config=snowflake_profile_config,
+        execution_config=ExecutionConfig(
+            dbt_executable_path="/dbt_venv/bin/dbt"
+        ),
+        render_config=RenderConfig(
+            select=["path:models/bronze/"]
+        ),
+        operator_args={"append_env": True},
+        default_args={"retries": 1, "on_failure_callback": failure_callback_partial}
     )
 
-    # silver transformation
-    silver = DbtTaskGroup(
-        group_id="dbt_silver_snowflake",
+    stg_silver = DbtTaskGroup(
+        group_id="dbt_stg_group2",
         project_config=ProjectConfig(
             Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations")
         ),
-        profile_config=profile_config,
-        execution_config=ExecutionConfig(dbt_executable_path="/dbt_venv/bin/dbt"),
-        render_config=RenderConfig(select=["path:models/silver/"]),
-        operator_args={"env": env_vars, "append_env": True},
+        profile_config=snowflake_profile_config,
+        execution_config=ExecutionConfig(
+            dbt_executable_path="/dbt_venv/bin/dbt"
+        ),
+        render_config=RenderConfig(
+            select=["path:models/silver/"]
+        ),
+        operator_args={"append_env": True},
+        default_args={"retries": 1, "on_failure_callback": failure_callback_partial}
     )
 
-    # gold transformation
-    gold = DbtTaskGroup(
-        group_id="dbt_gold_snowflake",
+    stg_gold = DbtTaskGroup(
+        group_id="dbt_stg_group3",
         project_config=ProjectConfig(
             Path("/appz/home/airflow/dags/data-engineering/nyc_parking_violations")
         ),
-        profile_config=profile_config,
-        execution_config=ExecutionConfig(dbt_executable_path="/dbt_venv/bin/dbt"),
-        render_config=RenderConfig(select=["path:models/gold/"]),
-        operator_args={"env": env_vars, "append_env": True},
+        profile_config=snowflake_profile_config,
+        execution_config=ExecutionConfig(
+            dbt_executable_path="/dbt_venv/bin/dbt"
+        ),
+        render_config=RenderConfig(
+            select=["path:models/gold/"]
+        ),
+        operator_args={"append_env": True},
+        default_args={"retries": 1, "on_failure_callback": failure_callback_partial}
     )
 
-    post_dbt = EmptyOperator(task_id="final_snowflake")
+    post_dbt = EmptyOperator(task_id="post_dbt")
 
-    # DAG flow
-    seeds_tg >> bronze >> silver >> gold >> post_dbt
+    seeds_tg >> stg_bronze >> stg_silver >> stg_gold >> post_dbt
