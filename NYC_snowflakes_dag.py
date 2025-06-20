@@ -23,11 +23,6 @@ def on_failure_callback(context, SVC_NAME):
         Log Url: {log_url}
     """)
 
-# Load required Snowflake env vars (as expected by dbt's env_var macro)
-env_vars = {
-    "SNOWFLAKE_PRIVATE_KEY": os.environ.get("SNOWFLAKE_PRIVATE_KEY"),
-    "SNOWFLAKE_PASSPHRASE": os.environ.get("SNOWFLAKE_PASSPHRASE"),
-}
 
 # Cosmos dbt profile configuration
 profile_config = ProfileConfig(
