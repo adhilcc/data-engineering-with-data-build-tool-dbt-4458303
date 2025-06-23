@@ -42,7 +42,7 @@ seeds:
   - name: dof_parking_violation_codes
     config:
       column_types:
-        CODE: integer
-        DEFINITION: varchar
+        code: integer
+        definition: varchar
         Manhattan_96th_St_and_below: integer
         All_Other_Areas: integer
