@@ -4,7 +4,7 @@ seeds:
   - name: parking_violations_issued_fiscal_year_2023_sample
     config:
       column_types:
-        Summons_Number: integer
+        Summons_Number: bigint
         Registration_State: varchar
         Plate_Type: varchar
         Issue_Date: varchar
