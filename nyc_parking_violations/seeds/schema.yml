@@ -44,5 +44,5 @@ seeds:
       column_types:
         code: integer
         definition: varchar
-        Manhattan_96th_St_and_below: integer
-        All_Other_Areas: integer
+        manhattan_96th_st_and_below: integer
+        all_other_areas: integer
