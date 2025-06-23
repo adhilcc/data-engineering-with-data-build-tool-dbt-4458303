@@ -1,6 +1,6 @@
 SELECT
-    CODE AS violation_code,
-    DEFINITION as definition,
+    code AS violation_code,
+    definition,
     Manhattan_96th_St_and_below,
     All_Other_Areas
 FROM
