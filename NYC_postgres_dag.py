@@ -130,7 +130,7 @@ with DAG(
     )
 
     # Final dummy task
-    post_dbt = EmptyOperator(task_id="post_dbt")
+    post_dbt_test_success = EmptyOperator(task_id="post_dbt")
 
     # DAG execution flow
     seeds_tg >> stg_bronze >> stg_silver >> stg_gold >> post_dbt
